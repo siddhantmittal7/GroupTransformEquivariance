@@ -1,7 +1,3 @@
-"""
-Transformer modules.
-"""
-
 import numpy as np
 import torch
 import torch.nn as nn
@@ -336,89 +332,9 @@ class Scale(Transformer):
         mat[:, 1, 1] = scale
         mat[:, 2, 2] = 1.        
         return ProjectiveGridTransform(mat)
-
-    
-class RotationScale(Transformer):    
-    def __init__(self, predictor_cls, in_channels, nf,
-                 coords=logpolar_grid,
-                 ulim=(-np.log(10.), np.log(2.)/2.),
-                 vlim=(-np.pi, np.pi),
-                 **kwargs):
-        super().__init__(predictor_cls=predictor_cls, 
-                         in_channels=in_channels,
-                         nf=nf,
-                         coords=coords,
-                         ulim=ulim,                         
-                         vlim=vlim,
-                         periodic_v=True,
-                         **kwargs)
-        
-    def transform_from_params(self, *params):
-        scale, angle = params
-        scale = torch.exp(scale)
-        n = scale.shape[0]
-        device = scale.device
-        ca, sa = torch.cos(angle), torch.sin(angle)
-        mat = torch.zeros(n, 3, 3, device=device)
-        mat[:, 0, 0] =  scale * ca
-        mat[:, 0, 1] = -scale * sa
-        mat[:, 1, 0] =  scale * sa
-        mat[:, 1, 1] =  scale * ca
-        mat[:, 2, 2] = 1.        
-        return ProjectiveGridTransform(mat)
-        
-    
-class ShearX(Transformer):
-    def __init__(self, predictor_cls, in_channels, nf,
-                 coords=shearx_grid,
-                 ulim=(-1, 1),
-                 vlim=(-5, 5),
-                 **kwargs):
-        super().__init__(predictor_cls=predictor_cls, 
-                         in_channels=in_channels,
-                         nf=nf,
-                         coords=coords,
-                         ulim=ulim,
-                         vlim=vlim,
-                         return_u=False,
-                         **kwargs)
-        
-    def transform_from_params(self, *params):
-        shear = params[0]
-        mat = torch.zeros(shear.shape[0], 3, 3, device=shear.device)
-        mat[:, 0, 0] = 1.
-        mat[:, 0, 1] = shear
-        mat[:, 1, 1] = 1.
-        mat[:, 2, 2] = 1.        
-        return ProjectiveGridTransform(mat)
     
     
-class ShearY(Transformer):
-    def __init__(self, predictor_cls, in_channels, nf,
-                 coords=sheary_grid,
-                 ulim=(-1, 1),
-                 vlim=(-5, 5),
-                 **kwargs):
-        super().__init__(predictor_cls=predictor_cls, 
-                         in_channels=in_channels,
-                         nf=nf,
-                         coords=coords,
-                         ulim=ulim,
-                         vlim=vlim,
-                         return_u=False,
-                         **kwargs)
-    
-    def transform_from_params(self, *params):
-        shear = params[0]
-        mat = torch.zeros(shear.shape[0], 3, 3, device=shear.device)
-        mat[:, 0, 0] = 1.
-        mat[:, 1, 0] = shear
-        mat[:, 1, 1] = 1.
-        mat[:, 2, 2] = 1.
-        return ProjectiveGridTransform(mat)
-    
-    
-class ScaleX(Transformer):    
+class ReflectionX(Transformer):    
     def __init__(self, predictor_cls, in_channels, nf,
                  coords=scalex_grid,
                  ulim=(-np.log(10.), 0),                 
@@ -434,15 +350,14 @@ class ScaleX(Transformer):
                          **kwargs)       
     
     def transform_from_params(self, *params):
-        scale = torch.exp(params[0])
         mat = torch.zeros(scale.shape[0], 3, 3, device=scale.device)
-        mat[:, 0, 0] = scale
+        mat[:, 0, 0] = -1
         mat[:, 1, 1] = 1.
         mat[:, 2, 2] = 1.       
         return ProjectiveGridTransform(mat)
         
         
-class ScaleY(Transformer):    
+class ReflectionY(Transformer):    
     def __init__(self, predictor_cls, in_channels, nf,
                  coords=scalex_grid,
                  ulim=(-np.log(10.), 0),                 
@@ -461,12 +376,11 @@ class ScaleY(Transformer):
         scale = torch.exp(params[0])
         mat = torch.zeros(scale.shape[0], 3, 3, device=scale.device)
         mat[:, 0, 0] = 1.
-        mat[:, 1, 1] = scale
+        mat[:, 1, 1] = -1
         mat[:, 2, 2] = 1.       
         return ProjectiveGridTransform(mat)
     
-    
-class HyperbolicRotation(Transformer):
+class FunnyMirrorDistortion(Transformer):
     def __init__(self, predictor_cls, in_channels, nf,
                  coords=hyperbolic_grid,
                  ulim=(-np.sqrt(0.5), np.sqrt(0.5)),
@@ -486,56 +400,6 @@ class HyperbolicRotation(Transformer):
         mat = torch.zeros(scale.shape[0], 3, 3, device=scale.device)
         mat[:, 0, 0] = scale
         mat[:, 1, 1] = 1./scale
-        mat[:, 2, 2] = 1.
-        return ProjectiveGridTransform(mat)
-    
-    
-class PerspectiveX(Transformer):
-    def __init__(self, predictor_cls, in_channels, nf,
-                 coords=perspectivex_grid,
-                 ulim=(1, 7),                 
-                 vlim=(-0.99*np.pi/2, 0.99*np.pi/2),
-                 **kwargs):
-        super().__init__(predictor_cls=predictor_cls, 
-                         in_channels=in_channels,
-                         nf=nf,
-                         coords=coords,
-                         ulim=ulim,                        
-                         vlim=vlim,
-                         return_v=False,
-                         **kwargs)    
-               
-    def transform_from_params(self, *params):
-        perspective = params[0]
-        mat = torch.zeros(perspective.shape[0], 3, 3, device=perspective.device)
-        mat[:, 0, 0] = 1.
-        mat[:, 1, 1] = 1.
-        mat[:, 2, 0] = perspective
-        mat[:, 2, 2] = 1.
-        return ProjectiveGridTransform(mat)
-    
-    
-class PerspectiveY(Transformer):
-    def __init__(self, predictor_cls, in_channels, nf,
-                 coords=perspectivey_grid,
-                 ulim=(1, 7),                 
-                 vlim=(-0.99*np.pi/2, 0.99*np.pi/2),
-                 **kwargs):
-        super().__init__(predictor_cls=predictor_cls, 
-                         in_channels=in_channels,
-                         nf=nf,
-                         coords=coords,
-                         ulim=ulim,                        
-                         vlim=vlim,
-                         return_v=False,
-                         **kwargs)
-               
-    def transform_from_params(self, *params):
-        perspective = params[0]
-        mat = torch.zeros(perspective.shape[0], 3, 3, device=perspective.device)
-        mat[:, 0, 0] = 1.
-        mat[:, 1, 1] = 1.
-        mat[:, 2, 1] = perspective
         mat[:, 2, 2] = 1.
         return ProjectiveGridTransform(mat)
         
