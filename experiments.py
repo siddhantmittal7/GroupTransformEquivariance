@@ -142,7 +142,7 @@ class Model(object):
               lr_schedule={'step_size': 1, 'gamma': 0.99},
               save_path=None,
               show_plot=False,
-              device='cuda:0'):
+              device='cpu'):
         """Train the model."""
         if save_path is not None:
             logging.info('Saving model with lowest validation error to %s' % save_path)
@@ -207,7 +207,7 @@ class Model(object):
         logging.info('Finished training in %.1f s' % (time.time() - start_time))
         return self
     
-    def test(self, batch_size=100, test_path=None, test_dataset_opts={}, device='cuda:0'):
+    def test(self, batch_size=100, test_path=None, test_dataset_opts={}, device='cpu'):
         """Test the model."""
         if test_path is None:
             raise ValueError('test_path must be specified')
@@ -226,7 +226,7 @@ class Model(object):
         logging.info('Test error = %.4f' % err_rate)
         return loss, err_rate
     
-    def predict(self, input, device='cuda:0', tf_output=False):
+    def predict(self, input, device='cpu', tf_output=False):
         """Predict a distribution over labels for a single example."""
         self.model.eval()
         self.model.to(device)
@@ -278,7 +278,7 @@ class Dataset(torch.utils.data.Dataset):
     def __init__(self, path, num_examples=None, normalization=None):
         self.path = path
         self.normalization = normalization      
-        self.data, self.targets = torch.load(self.path)
+        self.data, self.targets = torch.load(self.path,map_location='cpu')
         if self.data.dim() == 3:
             self.data = self.data.unsqueeze(1)  # singleton channel dimension
         
