@@ -1,12 +1,28 @@
-# Equivariant Transformer Networks
+# Goup Equivariance Convolution Nerual Network
 
-Equivariant Transformer (ET) layers are image-to-image mappings that incorporate prior knowledge on invariances with respect to continuous transformation groups.
-ET layers can be used to normalize the appearance of images prior to classification (or other operations) by a convolutional neural network.
+In my class presentation we talked about colen and Bekkers work on GCNN. In this is demo code which try to achive equivaraince by gourp transformation which are not limited ot discrete tranformation groups(Colen 2016) and rotaion and transaltion (Bekkers 2018). The advances of this system is
 
-More details can be found in our ICML 2019 paper: https://arxiv.org/abs/1901.11399.
+1. Can you used for continous groups transformation.
+2. Avoid data argumenation which eats up network complexity.
+3. Garaunties equivarance that is input after group tansformation are mapped to the same output result.
+4. Other transformation can be implemented eaily in this network.
+
+This code work is extended work of Equivariant tranformer network by Kai Sheng Tai. More details can be found in our ICML 2019 paper: https://arxiv.org/abs/1901.11399.
+
+## Motivation
+
+Consider, for example, the problem of classifying street signs in real-world images. In this domain, we know that the appearance of a sign in an image is subject to various deformations: the sign may be rotated, its scale will depend on its distance, and it may appear distorted due to perspective in 3D space. Regardless, the identity of the street sign should remain invariant to these transformations.
+
+## Requirements
+
+- python >=3.6
+- pytorch >=1.0 (https://pytorch.org/get-started/locally/)
+- fire (`pip install fire` / `conda install fire -c conda-forge`)
+
+## Transformation considers for this demo
 
 <p align="center">
-  <img align="middle" src="./assets/predicted-transformations.png" alt="Predicted transformations" width="500" />
+  <img align="middle" src="./assets/translation.png" alt="Predicted transformations" width="500" />
 </p>
 
 ---
