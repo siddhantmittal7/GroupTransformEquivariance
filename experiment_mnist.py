@@ -44,10 +44,12 @@ class MNISTModel(Model):
     normalization_std = torch.Tensor([56.2673])
     
     def __init__(self, 
-                 tfs=[transformers.ShearX, 
-                      transformers.HyperbolicRotation,
-                      transformers.PerspectiveX,
-                      transformers.PerspectiveY],
+                 tfs=[transformers.Translation, 
+                      transformers.Rotation,
+                      transformers.Scale,
+                      transformers.ReflectionX,
+                      transformers.ReflectionY,
+                      transformers.FunnyMirrorDistortion],
                  coords=coordinates.logpolar_grid, 
                  net=networks.BasicCNN,
                  equivariant=True,
