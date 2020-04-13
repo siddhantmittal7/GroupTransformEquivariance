@@ -332,6 +332,55 @@ class Scale(Transformer):
         mat[:, 1, 1] = scale
         mat[:, 2, 2] = 1.        
         return ProjectiveGridTransform(mat)
+
+class ShearX(Transformer):
+    def __init__(self, predictor_cls, in_channels, nf,
+                 coords=shearx_grid,
+                 ulim=(-1, 1),
+                 vlim=(-5, 5),
+                 **kwargs):
+        super().__init__(predictor_cls=predictor_cls, 
+                         in_channels=in_channels,
+                         nf=nf,
+                         coords=coords,
+                         ulim=ulim,
+                         vlim=vlim,
+                         return_u=False,
+                         **kwargs)
+        
+    def transform_from_params(self, *params):
+        shear = params[0]
+        mat = torch.zeros(shear.shape[0], 3, 3, device=shear.device)
+        mat[:, 0, 0] = 1.
+        mat[:, 0, 1] = shear
+        mat[:, 1, 1] = 1.
+        mat[:, 2, 2] = 1.        
+        return ProjectiveGridTransform(mat)
+    
+    
+class ShearY(Transformer):
+    def __init__(self, predictor_cls, in_channels, nf,
+                 coords=sheary_grid,
+                 ulim=(-1, 1),
+                 vlim=(-5, 5),
+                 **kwargs):
+        super().__init__(predictor_cls=predictor_cls, 
+                         in_channels=in_channels,
+                         nf=nf,
+                         coords=coords,
+                         ulim=ulim,
+                         vlim=vlim,
+                         return_u=False,
+                         **kwargs)
+    
+    def transform_from_params(self, *params):
+        shear = params[0]
+        mat = torch.zeros(shear.shape[0], 3, 3, device=shear.device)
+        mat[:, 0, 0] = 1.
+        mat[:, 1, 0] = shear
+        mat[:, 1, 1] = 1.
+        mat[:, 2, 2] = 1.
+        return ProjectiveGridTransform(mat)
     
     
 class ReflectionX(Transformer):    
