@@ -59,6 +59,7 @@ Dataset is availabe at: http://yann.lecun.com/exdb/mnist/
 Various networks which different transformation goup Vs Accuarcy
 
 Tranformations | Accuracy 
+sisd | -sssddsa-- 
 Translation, Rotation | 301 
 --- | --- 
 Translation, Rotation, Scale | 301 
