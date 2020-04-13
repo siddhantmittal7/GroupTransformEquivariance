@@ -1,11 +1,11 @@
 # Group Equivariance Convolution Nerual Network
 
-In my class presentation we talked about colen and Bekkers work on GCNN. In this is demo code which try to achive equivaraince by gourp transformation which are not limited ot discrete tranformation groups(Colen 2016) and rotaion and transaltion (Bekkers 2018). The advances of this system is
+In my class presentation we talked about Cohen and Bekkers work on GCNN. In this demo code we try to achive equivaraince by gourp transformation which are not limited to discrete transformation groups(Colen 2016) and rotaion and translation goups (Bekkers 2018). The advantages of this system is
 
-1. Can you used for continous groups transformation.
+1. Can be used for continous groups transformation.
 2. Avoid data argumenation which eats up network complexity.
 3. Garaunties equivarance that is input after group tansformation are mapped to the same output result.
-4. Other transformation can be implemented eaily in this network.
+4. Other transformation can be implemented easily in this network.
 
 This code work is extended work of Equivariant tranformer network by Kai Sheng Tai. More details can be found in our ICML 2019 paper: https://arxiv.org/abs/1901.11399.
 
