@@ -45,7 +45,7 @@ Dataset I have used for this is MNIST. Which is data of hand written digits. I h
   <img align="middle" src="./assets/dataset.png" alt="Examples of MNIST digits distorted by projective transformations" width="500" />
 </p>
 
-Datset is availabe at: http://yann.lecun.com/exdb/mnist/
+Dataset is availabe at: http://yann.lecun.com/exdb/mnist/
 
 ## Network Architectures
 
@@ -63,6 +63,15 @@ Tranformations | Accuracy
 Translation, Rotation | 301 
 --- | --- 
 Translation, Rotation, Scale | 301 
+--- | --- 
+Translation, Rotation, Scale | 301 
+--- | --- 
+Translation, Rotation, Scale, Sheer | 301 
+--- | --- 
+Translation, Rotation, Scale, Sheer, reflection | 301 
+--- | --- 
+Translation, Rotation, Scale, Sheer, reflection, funny distortion | 301 
+
 ## Conclusion and future directions
 
 1. Stacking tranformation layers is ultimately a heuristic approach as it does not guarantee equivariance with respect to the full transformation group.
