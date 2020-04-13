@@ -47,4 +47,11 @@ Dataset I have used for this is MNIST. Which is data of hand written digits. I h
 
 Datset is availabe at: http://yann.lecun.com/exdb/mnist/
 
+## Network Architectures
+
+1. Used a CNN architecture based on the Z2CNN from Cohen & Welling (2016), with 7 layers of 3×3 convolutions with 32 channels, batch normalization after convolutional layers, and dropout after the 3rd and 6th layers. 
+2. Introduced a sequence of transformer layers before the log-polar coordinate transformation to handle the remaining
+geometric transformations applied to the input.
+3. Each tranformer layer predicts a pose parameter whose inverse transformation is applied to the input image.
+4. The pose predictor networks are 3-layer CNNs with 32 channels in each layer. We selected the transformation order, dropout rate, and learning rate schedule based on validation accuracy.
 
