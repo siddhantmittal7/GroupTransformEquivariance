@@ -72,11 +72,13 @@ Translation, Rotation, Scale, Sheer, reflection | 301
 --- | --- 
 Translation, Rotation, Scale, Sheer, reflection, funny distortion | 301 
 
-| Tranformations  | Tranformations  |
+| Tranformations  | Accuracy  |
 |:-:|:-:|
-|   |   |
-|   |   |
-|   |   |
+| Translation, Rotation  |   |
+| Translation, Rotation, Scale  |   |
+| Translation, Rotation, Scale, Sheer |   |
+| Translation, Rotation, Scale, Sheer, reflection |  |
+| Translation, Rotation, Scale, Sheer, reflection, funny distortion | 301  | 
 
 ## Conclusion and future directions
 
