@@ -48,7 +48,7 @@ class MNISTModel(Model):
                       transformers.Rotation,
                       transformers.Scale,
                       transformers.ReflectionX,
-                      transformers.ReflectionY,
+                      transformers.SheerX,
                       transformers.FunnyMirrorDistortion],
                  coords=coordinates.logpolar_grid, 
                  net=networks.BasicCNN,
