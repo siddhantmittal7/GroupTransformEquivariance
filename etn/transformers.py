@@ -399,6 +399,7 @@ class ReflectionX(Transformer):
                          **kwargs)       
     
     def transform_from_params(self, *params):
+        scale = torch.exp(params[0])
         mat = torch.zeros(scale.shape[0], 3, 3, device=scale.device)
         mat[:, 0, 0] = -1
         mat[:, 1, 1] = 1.
