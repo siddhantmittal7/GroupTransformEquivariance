@@ -62,9 +62,9 @@ Various networks which different transformation goup Vs Accuarcy
 | ---| ---|
 | Translation, Rotation  | 83.68%  |
 | Translation, Rotation, Scale  | 86.27% |`
-| Translation, Rotation, Scale, Sheer |  85.68 |
+| Translation, Rotation, Scale, Sheer |  85.68% |
 | Translation, Rotation, Scale, Sheer, reflection |  |
-| Translation, Rotation, Scale, Sheer, reflection, funny distortion |   | 
+| Translation, Rotation, Scale, Sheer, reflection, funny distortion | 22%  | 
 
 ## Conclusion and future directions
 
