@@ -50,8 +50,20 @@ Datset is availabe at: http://yann.lecun.com/exdb/mnist/
 ## Network Architectures
 
 1. Used a CNN architecture based on the Z2CNN from Cohen & Welling (2016), with 7 layers of 3×3 convolutions with 32 channels, batch normalization after convolutional layers, and dropout after the 3rd and 6th layers. 
-2. Introduced a sequence of transformer layers before the log-polar coordinate transformation to handle the remaining
-geometric transformations applied to the input.
+2. Heuristic approach of using a sequence of ET layers, each of which aims to remove the effect of its corresponding subgroup of the full transformation group.
 3. Each tranformer layer predicts a pose parameter whose inverse transformation is applied to the input image.
 4. The pose predictor networks are 3-layer CNNs with 32 channels in each layer. We selected the transformation order, dropout rate, and learning rate schedule based on validation accuracy.
+
+## Results
+
+Attempt | #1 | #2 | #3 | #4 | #5 | #6 | #7 | #8 | #9 | #10 | #11
+--- | --- | --- | --- |--- |--- |--- |--- |--- |--- |--- |---
+Seconds | 301 | 283 | 290 | 286 | 289 | 285 | 287 | 287 | 272 | 276 | 269
+
+## Conclusion and future directions
+
+1. Stacking ET layers is ultimately a heuristic approach as it does not guarantee equivariance with respect to the full transformation group.
+2. Higher-dimensional groups require the use of long sequences of ET layers, resulting in high computational cost. 
+3. In such cases, we could employ a hybrid approach where “difficult” subgroups are handled by ET layers, while the remaining degrees of freedom are handled by G-CNNs as suggested by Bekkers (2018).
+4. In general, enforcing equivariance guarantees for higher-dimensional transformation groups in a computationally scalable fashion remains an open problem.
 
