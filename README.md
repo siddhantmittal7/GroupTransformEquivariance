@@ -1,4 +1,4 @@
-# Goup Equivariance Convolution Nerual Network
+# Group Equivariance Convolution Nerual Network
 
 In my class presentation we talked about colen and Bekkers work on GCNN. In this is demo code which try to achive equivaraince by gourp transformation which are not limited ot discrete tranformation groups(Colen 2016) and rotaion and transaltion (Bekkers 2018). The advances of this system is
 
