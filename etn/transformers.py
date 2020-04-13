@@ -452,4 +452,53 @@ class FunnyMirrorDistortion(Transformer):
         mat[:, 1, 1] = 1./scale
         mat[:, 2, 2] = 1.
         return ProjectiveGridTransform(mat)
+    
+class PerspectiveX(Transformer):
+    def __init__(self, predictor_cls, in_channels, nf,
+                 coords=perspectivex_grid,
+                 ulim=(1, 7),                 
+                 vlim=(-0.99*np.pi/2, 0.99*np.pi/2),
+                 **kwargs):
+        super().__init__(predictor_cls=predictor_cls, 
+                         in_channels=in_channels,
+                         nf=nf,
+                         coords=coords,
+                         ulim=ulim,                        
+                         vlim=vlim,
+                         return_v=False,
+                         **kwargs)    
+               
+    def transform_from_params(self, *params):
+        perspective = params[0]
+        mat = torch.zeros(perspective.shape[0], 3, 3, device=perspective.device)
+        mat[:, 0, 0] = 1.
+        mat[:, 1, 1] = 1.
+        mat[:, 2, 0] = perspective
+        mat[:, 2, 2] = 1.
+        return ProjectiveGridTransform(mat)
+    
+    
+class PerspectiveY(Transformer):
+    def __init__(self, predictor_cls, in_channels, nf,
+                 coords=perspectivey_grid,
+                 ulim=(1, 7),                 
+                 vlim=(-0.99*np.pi/2, 0.99*np.pi/2),
+                 **kwargs):
+        super().__init__(predictor_cls=predictor_cls, 
+                         in_channels=in_channels,
+                         nf=nf,
+                         coords=coords,
+                         ulim=ulim,                        
+                         vlim=vlim,
+                         return_v=False,
+                         **kwargs)
+               
+    def transform_from_params(self, *params):
+        perspective = params[0]
+        mat = torch.zeros(perspective.shape[0], 3, 3, device=perspective.device)
+        mat[:, 0, 0] = 1.
+        mat[:, 1, 1] = 1.
+        mat[:, 2, 1] = perspective
+        mat[:, 2, 2] = 1.
+        return ProjectiveGridTransform(mat)
         
