@@ -57,11 +57,12 @@ Dataset is availabe at: http://yann.lecun.com/exdb/mnist/
 ## Instruction to run the code
 
 1. System requirements:
+```sh
 python >=3.6
 pytorch >=1.0 (https://pytorch.org/get-started/locally/)
 fire (pip install fire / conda install fire -c conda-forge)
 Colab
-
+```
 2. To download and create the dataset run the following command:
 ```sh
 $ python datasets.py projective_mnist --data_dir=<PATH>
@@ -72,14 +73,14 @@ $ python datasets.py projective_mnist --data_dir=<PATH>
 $ python experiment_mnist.py train --train_path <PATH>/train.pt--valid_path <PATH>/valid.pt --save_path <SAVE_PATH> --tfs "[<TRANSFROMATION>]"
 ```
 In –tfs flag you have to provide the transformation you want to have in your model. The transformations implemented are in list below, copy paste the exact names in this flag comma separated.
-–Translation
-–Rotation
-–Scale
-–ShearX
-–ShearY
-–ReflectionX
-–ReflectionY
-–FunnyMirrorDistortion
+a. Translation
+b. Rotation
+c. Scale
+d. ShearX
+e. ShearY
+f. ReflectionX
+g. ReflectionY
+h. FunnyMirrorDistortion
 
 4. To evaluate a saved model on the test set run:
 ```sh
