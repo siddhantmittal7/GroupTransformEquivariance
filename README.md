@@ -54,6 +54,39 @@ Dataset is availabe at: http://yann.lecun.com/exdb/mnist/
 3. Each tranformer layer predicts a pose parameter whose inverse transformation is applied to the input image.
 4. The pose predictor networks are 3-layer CNNs with 32 channels in each layer. We selected the transformation order, dropout rate, and learning rate schedule based on validation accuracy.
 
+## Instruction to run the code
+
+1. System requirements:
+python >=3.6
+pytorch >=1.0 (https://pytorch.org/get-started/locally/)
+fire (pip install fire / conda install fire -c conda-forge)
+Colab
+
+2. To download and create the dataset run the following command:
+```sh
+$ python datasets.py projective_mnist --data_dir=<PATH>
+```
+3. I have already provided pre-train model inside my code directory as model.pt for Transformers: Translation -> Rotation -> Scale -> ReflectionX -> ShearX. For training a model with other transformation group run the following command 
+
+```sh
+$ python experiment_mnist.py train --train_path <PATH>/train.pt--valid_path <PATH>/valid.pt --save_path <SAVE_PATH> --tfs "[<TRANSFROMATION>]"
+```
+In –tfs flag you have to provide the transformation you want to have in your model. The transformations implemented are in list below, copy paste the exact names in this flag comma separated.
+–Translation
+–Rotation
+–Scale
+–ShearX
+–ShearY
+–ReflectionX
+–ReflectionY
+–FunnyMirrorDistortion
+
+4. To evaluate a saved model on the test set run:
+```sh
+python experiment_mnist.py --load_path <SAVE_PATH> test --test_path<PATH>/valid.pt
+```
+•GroupEquiDemo.ipynb is the Colab notebook for the demo run. You can simply open it in Google Colab and start run all, it will automatically run everything. I have made it fully automated by !git download to load models and !python to generated dataset. Hope you enjoy playing around with this.
+
 ## Results
 
 Various networks which different transformation goup Vs Accuarcy
