@@ -1,6 +1,6 @@
 # Group Equivariance Convolution Nerual Network
 
-In my class presentation we talked about Cohen and Bekkers work on GCNN. In this demo code we try to achive equivaraince by gourp transformation which are not limited to discrete transformation groups(Colen 2016) and rotaion and translation goups (Bekkers 2018). The advantages of this system is
+In my class presentation I talked about Cohen and Bekkers work on GCNN. In this demo code we try to achive equivaraince by group transformation which are not limited to discrete transformation groups(Colen 2016) and rotaion and translation goups (Bekkers 2018). The advantages of this system is
 
 1. Can be used for continous groups transformation.
 2. Avoid data argumenation which eats up network complexity.
@@ -63,8 +63,8 @@ Various networks which different transformation goup Vs Accuarcy
 | Translation, Rotation  | 83.68%  |
 | Translation, Rotation, Scale  | 86.27% |`
 | Translation, Rotation, Scale, Sheer |  85.68% |
-| Translation, Rotation, Scale, Sheer, reflection | 41% |
-| Translation, Rotation, Scale, Sheer, reflection, funny distortion | 22%  | 
+| Translation, Rotation, Scale, Sheer, reflection | 71% |
+| Translation, Rotation, Scale, Sheer, reflection, funny distortion | 42%  | 
 
 ## Conclusion and future directions
 
